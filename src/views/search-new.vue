@@ -4,6 +4,10 @@
     <div class="u-srh-box">
       <h1 class="u-tt">{{titleName}}</h1>
       <p class="u-tip">{{tipInfo}}</p>
+      <p class="name"
+         @click="certiState = true">{{certiTypeText}}
+        <span :class="[certiState ? 'rotate' : '']">></span>
+      </p>
       <div class="u-ipt-box">
         <input class="ipt"
                v-model="certiNo"
@@ -32,12 +36,25 @@
       <a href="javascript:;"
          @click="queryCustomerInfo">查询</a>
     </div>
+    <popup v-model="certiState">
+      <div class="pop-header">
+        <span @click="certiCancle">取消</span>
+        <span @click="certiConfrim">确定</span>
+      </div>
+      <picker :data='certiList'
+              v-model='certiTypeVal'
+              ref="certiPicker"></picker>
+    </popup>
+    <Datetime v-model="selectedData"
+              start-date="1990-01-01"
+              end-date="2050-12-31"
+              @on-change="changeDate"
+              title=""></Datetime>
   </div>
 </template>
 
 <script>
-import { Popup, Picker } from 'vux'
-import controlStorage from '../assets/js/storage'
+import { Popup, Picker, Datetime } from 'vux'
 import $ from 'jquery'
 export default {
   data() {
@@ -55,7 +72,10 @@ export default {
         { name: '永久居留证', value: '61' },
         { name: '其他', value: '9' }
       ]],
+      certiState: false,
+      certiTypeVal: [], //默认身份证
       certiType: '1', //默认身份证
+      certiTypeText: '身份证',
       certiNo: '',
       certiImage: '',
       policyCode: '',
@@ -63,13 +83,15 @@ export default {
       isError: false, // 查询是否错误
       errorMsg: '',
       tipInfo: '',
-      iptHolder: '投保人身份证号'
+      iptHolder: '投保人身份证号',
+      selectedData: '2019-06-14',
     };
   },
 
   components: {
     Popup,
     Picker,
+    Datetime
   },
 
   computed: {
@@ -189,6 +211,8 @@ export default {
   },
 
   methods: {
+    changeDate() {
+    },
     callAppPhoto() {
       let u = navigator.userAgent;
       let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
@@ -401,7 +425,7 @@ export default {
                   certiType: self.certiType
                 }
               });
-            break;
+              break;
             case 17:
               self.$router.push({
                 name: "certiValidateUpdate",
@@ -458,7 +482,16 @@ export default {
         self.isError = true;
         self.$vux.toast.text(JSON.stringify(err), "middle");
       })
-    }
+    },
+    certiCancle() {
+      this.certiState = false;
+    },
+    certiConfrim() {
+      this.certiType = this.$refs.certiPicker.getValue()[0];
+      this.certiTypeText = this.$refs.certiPicker.getNameValues();
+      this.certiState = false;
+      this.certiNo = '';
+    },
   }
 }
 
