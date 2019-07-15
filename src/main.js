@@ -3,12 +3,7 @@ import App from './App.vue'
 import router from './router/router'
 import store from './store'
 import axios from 'axios'
-import {
-  ToastPlugin,
-  LoadingPlugin,
-  ConfirmPlugin,
-  AlertPlugin
-} from 'vux'
+import { ToastPlugin, LoadingPlugin, ConfirmPlugin, AlertPlugin } from 'vux'
 
 Vue.config.productionTip = false
 Vue.use(ToastPlugin);

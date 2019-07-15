@@ -20,7 +20,10 @@ module.exports = {
   configureWebpack: config => {
     require('vux-loader').merge(config, {
       options: {},
-      plugins: ['vux-ui']
+      plugins: ['vux-ui', {
+        name: 'less-theme',
+        path: './node_modules/vux/src/theme.less'
+      }]
     })
   },
   // 第三方插件配置 https://www.npmjs.com/package/vue-cli-plugin-style-resources-loader
