@@ -55,6 +55,7 @@
 
 <script>
 import { Popup, Picker, Datetime } from 'vux'
+import controlStorage from '@js/storage'
 import $ from 'jquery'
 export default {
   data() {
@@ -120,6 +121,8 @@ export default {
   },
 
   mounted() {
+    controlStorage('test', 'set', '111');
+    console.log($);
     let csType = parseInt(this.csType);
     switch (csType) {
       case 1:
@@ -208,6 +211,13 @@ export default {
       default:
         break;
     }
+    //alert组件测试
+    this.$vux.alert.show({
+      title: '',
+      content: 'res.data.errMsg',
+      onShow() {
+      }
+    });
   },
 
   methods: {
@@ -497,5 +507,123 @@ export default {
 
 </script>
 <style lang='less' scoped>
-@import "../assets/less/baoq-new.less";
+@import "../assets/less/common/variables.less";
+.u-bq-body {
+  width: 100%;
+  height: 100%;
+}
+
+.u-srh-box {
+  width: 100%;
+  height: 100%;
+  padding: 0 25 / @b-width;
+
+  .u-tt {
+    font-family: PingFangSC-Medium;
+    font-size: 22 / @b-width;
+    color: #333333;
+    padding-top: 42 / @b-width;
+  }
+
+  .u-tip {
+    font-family: PingFangSC-Regular;
+    font-size: 16 / @b-width;
+    color: #666666;
+    padding: 10 / @b-width 0 35 / @b-width;
+  }
+
+  .u-ipt-box {
+    width: 100%;
+    height: 42 / @b-width;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #efeff4;
+
+    .ipt {
+      // flex: 1;
+      width: 180 / @b-width;
+      line-height: 22 / @b-width;
+      padding: 0 5px;
+      color: #333;
+      font-family: PingFangSC-Regular;
+      font-size: 16 / @b-width;
+    }
+
+    .icon {
+      width: 24 / @b-width;
+      height: 20 / @b-width;
+      background: url(../assets/img/scan.png) no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .u-error {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 15 / @b-width;
+
+    p {
+      line-height: 18 / @b-width;
+      display: flex;
+      align-items: center;
+      font-family: PingFangSC-Regular;
+      font-size: 12 / @b-width;
+      color: #ff6333;
+
+      .icon {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+        background: url(../assets/img/error-new.png) no-repeat;
+        background-size: contain;
+      }
+
+      .info {
+        width: 95%;
+      }
+    }
+  }
+}
+
+.u-query-btn {
+  width: 303 / @b-width;
+  height: 42 / @b-width;
+  margin: 80 / @b-width auto 0;
+
+  a {
+    width: 303 / @b-width;
+    height: 42 / @b-width;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(-90deg, #62d5e8 0%, #2fa8fe 100%);
+    box-shadow: 0 2px 10px 0 rgba(15, 148, 230, 0.4);
+    border-radius: 100px;
+    font-family: PingFangSC-Medium;
+    font-size: 16 / @b-width;
+    color: #fff;
+  }
+}
+
+.pop-header {
+  height: 45 / @b-width;
+  line-height: 45 / @b-width;
+  border-bottom: 1px solid #ddd;
+  padding: 0 25 / @b-width;
+  font-family: PingFangSC-Regular;
+  font-size: 16 / @b-width;
+  background: #fff;
+
+  span:first-child {
+    color: #333333;
+  }
+
+  span:last-child {
+    float: right;
+    color: #0f94e7;
+  }
+}
 </style>

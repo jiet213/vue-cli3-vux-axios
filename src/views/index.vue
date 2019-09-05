@@ -54,7 +54,19 @@ export default {
 
   computed: {},
 
-  mounted() { },
+  mounted() {
+    //confirm组件测试
+    this.$vux.confirm.show({
+      title: '更改失败',
+      content: 'res.data.errMsg',
+      confirmText: '返回保单列表',
+      cancelText: '确定',
+      onConfirm() {
+      },
+      onCancel() {
+      }
+    });
+  },
 
   methods: {
     /**
@@ -93,7 +105,7 @@ export default {
 
 </script>
 <style lang='less' scoped>
-@import "../assets/less/common/common.main.less";
+@import "../assets/less/common/variables.less";
 .u-bq-index {
   width: 100%;
   height: 100%;
